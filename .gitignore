@@ -1,0 +1,27 @@
+# Secrets
+.env
+
+# Generated outputs — personal medical content, not for version control
+outputs/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# Personal profile copies
+context/physician copy.py
+*.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Claude Code — local overrides are machine-specific; shared settings.json can be committed
+.claude/settings.local.json
