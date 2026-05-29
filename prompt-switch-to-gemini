@@ -1,0 +1,24 @@
+I need to migrate this project from the Anthropic SDK to Google Vertex AI.
+
+Context:
+- This is a multi-agent medical research digest pipeline
+- All agents currently use anthropic.Anthropic() client and client.messages.create()
+- Model config is centralized in config.py
+
+Migration targets:
+- Use Vertex AI SDK (google-cloud-aiplatform + vertexai Python SDK)
+- MODEL_FAST → gemini-2.0-flash (high-volume steps: grading, scoring, voices)
+- MODEL_SMART → gemini-2.5-pro (synthesis only)
+- Auth: Application Default Credentials (gcloud auth application-default login)
+- Required env vars: GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION (e.g. us-central1)
+
+Tasks:
+1. Update requirements.txt — replace anthropic with google-cloud-aiplatform and vertexai
+2. Update config.py — new model IDs, project and location variables
+3. Update .env.example — replace ANTHROPIC_API_KEY with GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION
+4. Refactor all agent files — replace Anthropic client pattern with vertexai.generative_models.GenerativeModel
+5. Handle system prompts correctly — pass them via SystemInstruction at model instantiation
+6. Update README — replace Anthropic/Claude references with Vertex AI / Gemini, add gcloud setup steps
+
+Keep the pipeline structure, async patterns, and voices layer intact.
+After migrating, do a --dry-run to confirm the project loads without errors.
